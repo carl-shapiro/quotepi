@@ -15,26 +15,25 @@ class Quote extends Component {
 
    }
 
-   componentDidUnmount() {
+   componentWillUnmount() {
 
 
    }
   render() {
 
-    const {quote, book, fading} = this.props.quote;
-    let fadedClass = this.props.fading ? "fadeIn" :"fadeOut";
+    const {quote, book, fade} = this.props.quote;
+    let fadedClass = this.props.fade ? "fadeIn" :"fadeOut";
+
+    console.log("Faded class", fadedClass);
     return (
 
       <div className="Quote">
-      <ReactCSSTransitionGroup
-      transitionName="fade"
-      transitionEnterTimeout={500}>
 
-          <section>
+
+          <section className={fadedClass}>
             <p>{quote}</p>
             <p>{book}</p>
           </section>
-          </ReactCSSTransitionGroup>
       </div>
     );
   }

@@ -17,9 +17,9 @@ class App extends Component {
         book:startQuote.book,
         authors:startQuote.authors
       },
-      timeout:2000,
+      timeout:10000,
       fading:false
-    }
+    };
     this.getNewQuote = this.getNewQuote.bind(this);
     this.getNewQuote();
   }
@@ -33,27 +33,41 @@ class App extends Component {
   getNewStyle(){
 
   }
-  componentDidMount() {
-     this.timeout = setInterval(() => {
-       this.getNewQuote();
-       let nextQuote = this.getNewQuote();
-       this.setState({currentQuote:nextQuote});
-       this.setState({fading:true});
+  componentDidMount(prevProps, prevState) {
 
-     }, this.state.timeout);
+    this.timeout = setInterval(() => {
+            let nextQuote = this.getNewQuote();
+      this.setState({currentQuote:nextQuote, fading:true});
 
+      setInterval(()=>{
+        this.setState({fading:false});
+      }, this.state.timeout-250);
+
+    }, this.state.timeout);
    }
 
-   componentDidUnmount() {
-    clearInterval(this.state.timeout);
+   componentDidUpdate(){
+     // this.setState({fading:false});
+   }
+   // componentDidMount(){
+   //
+   // }
+
+   // componentWillUnmount() {
+   //   this.setState({fading:false});
+   //   clearInterval(this.state.timeout);
+   // }
+
+   componentDidUpdate(prevProps, prevState){
+
+
    }
 
 
   render() {
 
     const {quote, book, fading} = this.state;
-
-
+    console.log('Fading', fading);
     return (
 
       <div className="App">
